@@ -20,25 +20,22 @@ use Phact\Orm\Model;
 
 class MetaBound extends MetaModel
 {
-    public static function getFields() 
+    public static function getFields()
     {
         return [
             'title' => [
                 'class' => CharField::class,
-                'label' => 'Заголовок',
-                'hint' => 'Тег title',
+                'label' => 'Title',
                 'null' => true
             ],
             'description' => [
                 'class' => CharField::class,
-                'label' => 'Описание',
-                'hint' => 'Тег meta description',
+                'label' => 'Description',
                 'null' => true
             ],
             'keywords' => [
                 'class' => CharField::class,
-                'label' => 'Ключевые слова',
-                'hint' => 'Тег meta keywords',
+                'label' => 'Keywords',
                 'null' => true
             ],
             'object_class' => [
@@ -58,7 +55,7 @@ class MetaBound extends MetaModel
 
     public static function fetch($object)
     {
-        return self::objects()->filter([
+        return static::objects()->filter([
             'object_pk' => $object->id,
             'object_class' => $object->className()
         ])->get();
@@ -87,4 +84,4 @@ class MetaBound extends MetaModel
     {
         return mb_substr($text, 0, 250, 'UTF-8') . (mb_strlen($text, 'UTF-8') > 250 ? '...' : '');
     }
-} 
+}
